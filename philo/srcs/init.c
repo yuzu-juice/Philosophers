@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 03:03:15 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:56:19 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	t_waiter_result	result;
 
 	result.error.is_error = false;
-	result.error.message = NULL;
+	result.error.msg = NULL;
 	result.waiter.num_of_philos = ft_atouint(argv[1]);
 	result.waiter.num_of_forks = result.waiter.num_of_philos;
 	result.waiter.time_to_die = ft_atouint(argv[2]);

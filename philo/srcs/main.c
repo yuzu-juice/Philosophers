@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:53:12 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 03:20:53 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:56:19 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 static t_exit_failure	print_error_and_return_failure(t_error error)
 {
 	ft_putstr_fd("Error: ", 2);
-	ft_putendl_fd(error.message, 2);
+	ft_putendl_fd(error.msg, 2);
 	return (EXIT_FAILURE);
 }
 

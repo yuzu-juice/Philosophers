@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 03:04:45 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:56:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_waiter
 typedef struct s_error
 {
 	bool	is_error;
-	char	*message;
+	char	*msg;
 }	t_error;
 
 typedef struct s_int_result
@@ -51,5 +51,19 @@ typedef struct s_pthread_t_ptr_result
 	pthread_t	*tid;
 	t_error		error;
 }	t_pthread_ptr_result;
+
+typedef struct s_info
+{
+	t_waiter	*waiter;
+	int			philo_id;
+	int			left_fork_id;
+	int			right_fork_id;
+}	t_info;
+
+typedef struct s_info_result
+{
+	t_info	*info;
+	t_error	error;
+}	t_info_result;
 
 #endif
