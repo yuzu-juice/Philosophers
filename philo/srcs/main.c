@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:53:12 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 01:24:11 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:20:53 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int	main(int argc, char **argv)
 		return (print_error_and_return_failure(waiter_result.error));
 	error = philo(waiter_result.waiter);
 	if (error.is_error)
+	{
+		cleanup_waiter(&waiter_result.waiter);
 		return (print_error_and_return_failure(error));
+	}
+	cleanup_waiter(&waiter_result.waiter);
 	return (EXIT_SUCCESS);
 }
 
