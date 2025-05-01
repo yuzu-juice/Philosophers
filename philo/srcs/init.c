@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:05:01 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 02:39:27 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,42 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	return (result);
 }
 
+void	cleanup_waiter(t_waiter *waiter)
+{
+	int	i;
+
+	i = 0;
+	while (i < waiter->num_of_forks)
+	{
+		pthread_mutex_destroy(&(waiter->forks[i]));
+		i++;
+	}
+	free(waiter->forks);
+	waiter->forks = NULL;
+}
+
 static t_error	init_forks(t_waiter *waiter)
 {
+	int	i;
+
 	waiter->forks = ft_calloc(waiter->num_of_forks, sizeof(pthread_mutex_t));
 	if (waiter->forks == NULL)
 		return (create_error(ERR_MEMORY));
+	i = 0;
+	while (i < waiter->num_of_forks)
+	{
+		if (pthread_mutex_init(&(waiter->forks[i]), NULL) != 0)
+		{
+			while (i > 0)
+			{
+				i--;
+				;
+				pthread_mutex_destroy(&(waiter->forks[i]));
+			}
+			free(waiter->forks);
+			return (create_error(ERR_MUTEX_INIT));
+		}
+		i++;
+	}
 	return (create_success());
 }
