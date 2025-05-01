@@ -2,28 +2,31 @@ NAME	= philo
 SRCS	= srcs/main.c\
 			srcs/init.c\
 			srcs/error.c\
-			srcs/philo.c
+			srcs/philo.c\
+			srcs/utils/ft_atouint.c\
+			srcs/utils/ft_calloc.c\
+			srcs/utils/ft_putstr.c
 OBJS	= $(SRCS:.c=.o)
-HEADERS	= includes/philo.h
+HEADERS	= includes/philo.h\
+			includes/error_messages.h\
+			includes/utils.h\
+			includes/exit.h\
+			includes/result.h
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
-LIBFT	= libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cd "$(PWD)/libft" && make && cd ..
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread $(LIBFT) -I $(HEADERS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread -I includes
 
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c $(HEADERS))
+	$(CC) $(CFLAGS) -c $< -o $@ -I includes
 
 clean:
-	cd "$(PWD)/libft" && make clean && cd ..
 	rm -f $(OBJS)
 
 fclean: clean
-	cd "$(PWD)/libft" && make fclean && cd ..
 	rm -f $(NAME)
 
 re: fclean all

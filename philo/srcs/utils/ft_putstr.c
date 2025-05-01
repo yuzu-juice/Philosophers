@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:13:39 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/02 02:00:33 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/02 02:08:10 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../../includes/philo.h"
 
-# include "result.h"
-# include "exit.h"
-# include "error_messages.h"
-# include "utils.h"
+static void	ft_putchar_fd(char c, int fd);
 
-# include <pthread.h>
-# include <stdio.h>
-# include <limits.h>
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}
 
-t_waiter_result	init_waiter(int argc, char **argv);
-t_error			philo(t_waiter params);
-t_error			create_error(char *message);
-t_error			create_success(void);
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}
+
+static void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

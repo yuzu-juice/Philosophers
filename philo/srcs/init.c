@@ -6,20 +6,19 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 01:41:56 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 02:05:01 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 static t_error	init_forks(t_waiter *waiter);
-static int		ft_atouint(char *str);
 
 t_waiter_result	init_waiter(int argc, char **argv)
 {
 	t_waiter_result	result;
 
-	result.error.is_error = FALSE;
+	result.error.is_error = false;
 	result.error.message = NULL;
 	result.waiter.num_of_philos = ft_atouint(argv[1]);
 	result.waiter.num_of_forks = result.waiter.num_of_philos;
@@ -48,16 +47,4 @@ static t_error	init_forks(t_waiter *waiter)
 	if (waiter->forks == NULL)
 		return (create_error(ERR_MEMORY));
 	return (create_success());
-}
-
-static int	ft_atouint(char *str)
-{
-	int		result;
-
-	if (!ft_isnum(str))
-		return (-1);
-	result = ft_atoi(str);
-	if (result < 0)
-		return (-1);
-	return (result);
 }

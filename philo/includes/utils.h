@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:13:39 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/02 01:57:45 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/02 02:04:43 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "result.h"
-# include "exit.h"
-# include "error_messages.h"
-# include "utils.h"
-
-# include <pthread.h>
-# include <stdio.h>
+# include <unistd.h>
 # include <limits.h>
+# include <stdlib.h>
 
-t_waiter_result	init_waiter(int argc, char **argv);
-t_error			philo(t_waiter params);
-t_error			create_error(char *message);
-t_error			create_success(void);
+int		ft_atouint(char *str);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putendl_fd(char *s, int fd);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

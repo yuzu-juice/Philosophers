@@ -2,6 +2,8 @@
     "files.associations": {
         "philo.h": "c",
         "_null.h": "c",
-        "error_messages.h": "c"
+        "error_messages.h": "c",
+        "libft.h": "c",
+        "utils.h": "c"
     }
 }
