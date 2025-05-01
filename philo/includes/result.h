@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:52:10 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:04:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ typedef struct s_pthread_t_ptr_result
 {
 	pthread_t	*tid;
 	t_error		error;
-}	t_pthread_t_ptr_result;
+}	t_pthread_ptr_result;
 
 #endif

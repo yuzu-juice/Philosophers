@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:39:27 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 03:03:15 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static t_error	init_forks(t_waiter *waiter)
 			while (i > 0)
 			{
 				i--;
-				;
 				pthread_mutex_destroy(&(waiter->forks[i]));
 			}
 			free(waiter->forks);
