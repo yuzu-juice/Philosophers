@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 20:55:18 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 01:31:05 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/02 00:50:32 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/02 00:53:18 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MESSAGES_H
-# define ERROR_MESSAGES_H
+#include "../includes/philo.h"
 
-# define ERR_WRONG_ARGC "Wrong number of arguments"
-# define ERR_INVALID_ARGS "Invalid arguments"
-# define ERR_MEMORY "Memory allocation failed"
-# define ERR_THREAD_CREATE "Thread creation failed"
-# define ERR_THREAD_JOIN "Thread join failed"
+t_error	create_error(char *message)
+{
+	t_error	error;
 
-#endif
+	error.is_error = true;
+	error.message = message;
+	return (error);
+}
+
+t_error	create_success(void)
+{
+	t_error	error;
+
+	error.is_error = false;
+	error.message = NULL;
+	return (error);
+}

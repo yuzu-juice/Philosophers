@@ -6,14 +6,27 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/01 20:46:10 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 00:49:19 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RESULT_H
 # define RESULT_H
 
+# include "philo.h"
 # include <stdbool.h>
+# include <pthread.h>
+
+typedef struct s_waiter
+{
+	int				num_of_philos;
+	int				num_of_forks;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_times_each_philo_must_eat;
+	pthread_mutex_t	*forks;
+}	t_waiter;
 
 typedef struct s_error
 {
@@ -27,19 +40,16 @@ typedef struct s_int_result
 	t_error	error;
 }	t_int_result;
 
-typedef struct s_params
+typedef struct s_waiter_result
 {
-	int		number_of_philosophers;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
-}	t_params;
-
-typedef struct s_params_result
-{
-	t_params	params;
+	t_waiter	waiter;
 	t_error		error;
-}	t_params_result;
+}	t_waiter_result;
+
+typedef struct s_pthread_t_ptr_result
+{
+	pthread_t	*tid;
+	t_error		error;
+}	t_pthread_t_ptr_result;
 
 #endif

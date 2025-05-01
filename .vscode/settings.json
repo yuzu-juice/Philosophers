@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "philo.h": "c",
-        "_null.h": "c"
+        "_null.h": "c",
+        "error_messages.h": "c"
     }
 }

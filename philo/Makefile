@@ -1,5 +1,8 @@
 NAME	= philo
-SRCS	= srcs/main.c
+SRCS	= srcs/main.c\
+			srcs/init.c\
+			srcs/error.c\
+			srcs/philo.c
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= includes/philo.h
 CC		= cc
@@ -10,7 +13,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	cd "$(PWD)/libft" && make && cd ..
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -I $(HEADERS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread $(LIBFT) -I $(HEADERS)
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -28,7 +31,22 @@ re: fclean all
 norm:
 	norminette srcs includes
 
+INTEGRATION_TESTS = $(wildcard tests/*.test.sh)
+integration: all
+	@echo "Running integration tests..."
+	@for test in $(INTEGRATION_TESTS); do \
+		if chmod 755 $${test} && $${test}; then \
+			echo "\033[32mPassed: $${test}\033[0m";\
+		else \
+			echo "\033[31mFailed: $${test}\033[0m"; \
+			exit 1; \
+		fi; \
+	done
+	@echo "⭐️\033[32mPassed all integration tests!\033[0m⭐️"
+
+tests: norm integration
+
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all ./philo
 
-.PHONY: all clean fclean re norm valgrind
+.PHONY: all clean fclean re norm integration tests valgrind
