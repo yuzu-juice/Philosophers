@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:53:12 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/01 20:48:49 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/01 21:00:10 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-static t_exit_failure print_error_and_return_failure(t_error error)
+static t_exit_failure	print_error_and_return_failure(t_error error)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putendl_fd(error.message, 2);
@@ -46,7 +46,7 @@ static t_error	validate_argc(int argc)
 	if (!(argc == 5 || argc == 6))
 	{
 		error.is_error = TRUE;
-		error.message = "Wrong number of args.";
+		error.message = ERR_WRONG_ARGC;
 	}
 	return (error);
 }
@@ -71,7 +71,7 @@ static t_params_result	init_params(int argc, char **argv)
 		|| (argc == 6 && params.number_of_times_each_philosopher_must_eat <= 0))
 	{
 		result.error.is_error = TRUE;
-		result.error.message = "Invalid arguments.";
+		result.error.message = ERR_INVALID_ARGS;
 	}
 	else
 		result.params = params;

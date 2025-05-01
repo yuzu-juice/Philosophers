@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   error_messages.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/01 20:58:22 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/01 20:55:18 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/01 20:57:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef ERROR_MESSAGES_H
+# define ERROR_MESSAGES_H
 
-# include "../libft/libft.h"
-# include "result.h"
-# include "exit.h"
-# include "error_messages.h"
+# define ERR_WRONG_ARGC "Wrong number of arguments"
+# define ERR_INVALID_ARGS "Invalid arguments"
+# define ERR_MEMORY "Memory allocation failed"
 
 #endif
