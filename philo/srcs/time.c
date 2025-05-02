@@ -6,13 +6,13 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:11:54 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 16:58:15 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_msleep(int ms, t_info *info)
+t_error	ft_msleep(int ms, t_info *info)
 {
 	long	start;
 
@@ -25,10 +25,11 @@ void	ft_msleep(int ms, t_info *info)
 		{
 			info->is_dead = true;
 			print_died(info->w, info->philo_id);
-			exit(0);
+			return (create_error(ERR_PHILO_DIED));
 		}
 		usleep(100);
 	}
+	return (create_success());
 }
 
 long	elapsed_time_as_ms(long start)

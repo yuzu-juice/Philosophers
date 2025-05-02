@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:04:16 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:15:15 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,8 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	if (result.error.is_error)
 		return (result);
 	result.error = init_print_mutex(&result.w);
-	if (result.error.is_error)
-		return (result);
 	result.error = init_forks_mutex(&result.w);
-	if (result.error.is_error)
-		return (result);
 	result.error = init_eat_count(&result.w);
-	if (result.error.is_error)
-		return (result);
 	return (result);
 }
 
