@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 17:15:15 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:26:07 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_error	init_forks_mutex(t_waiter *w);
 static t_error	init_print_mutex(t_waiter *w);
 static t_error	init_eat_count(t_waiter *w);
+static t_error	init_is_dead(t_waiter *w);
 
 t_waiter_result	init_waiter(int argc, char **argv)
 {
@@ -40,6 +41,7 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	result.error = init_print_mutex(&result.w);
 	result.error = init_forks_mutex(&result.w);
 	result.error = init_eat_count(&result.w);
+	result.error = init_is_dead(&result.w);
 	return (result);
 }
 
@@ -99,6 +101,14 @@ static t_error	init_eat_count(t_waiter *w)
 {
 	w->eat_count = ft_calloc(w->num_of_philos, sizeof(int));
 	if (w->eat_count == NULL)
+		return (create_error(ERR_MEMORY));
+	return (create_success());
+}
+
+static t_error	init_is_dead(t_waiter *w)
+{
+	w->is_dead = ft_calloc(w->num_of_philos, sizeof(bool));
+	if (w->is_dead == NULL)
 		return (create_error(ERR_MEMORY));
 	return (create_success());
 }

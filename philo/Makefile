@@ -6,6 +6,7 @@ SRCS	= srcs/main.c\
 			srcs/thread.c\
 			srcs/time.c\
 			srcs/print.c\
+			srcs/watchdog.c\
 			srcs/utils/ft_atouint.c\
 			srcs/utils/ft_calloc.c\
 			srcs/utils/ft_putstr.c
