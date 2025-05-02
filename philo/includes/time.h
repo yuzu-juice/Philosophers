@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:32:57 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:07:25 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <sys/time.h>
 
-void			ft_msleep(int ms);
-long			elapsed_time_as_ms(struct timeval start);
-struct timeval	get_time_now(void);
+void	ft_msleep(int ms, t_info *info);
+long	elapsed_time_as_ms(long start);
+long	timestamp(void);
 
 #endif
