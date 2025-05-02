@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:46:17 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 09:53:54 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,15 @@ void	print_is_eating(t_waiter *w, int philo_id)
 	elapsed_time = elapsed_time_as_ms(w->start_time);
 	pthread_mutex_lock(w->print_mutex);
 	printf("%ld %d is eating.\n", elapsed_time, philo_id);
+	pthread_mutex_unlock(w->print_mutex);
+}
+
+void	print_is_sleeping(t_waiter *w, int philo_id)
+{
+	long	elapsed_time;
+
+	elapsed_time = elapsed_time_as_ms(w->start_time);
+	pthread_mutex_lock(w->print_mutex);
+	printf("%ld %d is sleeping.\n", elapsed_time, philo_id);
 	pthread_mutex_unlock(w->print_mutex);
 }
