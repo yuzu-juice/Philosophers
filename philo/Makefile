@@ -3,6 +3,9 @@ SRCS	= srcs/main.c\
 			srcs/init.c\
 			srcs/error.c\
 			srcs/philo.c\
+			srcs/thread.c\
+			srcs/time.c\
+			srcs/print.c\
 			srcs/utils/ft_atouint.c\
 			srcs/utils/ft_calloc.c\
 			srcs/utils/ft_putstr.c
@@ -11,7 +14,10 @@ HEADERS	= includes/philo.h\
 			includes/error_messages.h\
 			includes/utils.h\
 			includes/exit.h\
-			includes/result.h
+			includes/result.h\
+			includes/thread.h\
+			includes/time.h\
+			includes/print.h\
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 
