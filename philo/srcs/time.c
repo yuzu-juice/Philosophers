@@ -6,40 +6,46 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:44:20 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:11:54 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_msleep(int ms)
+void	ft_msleep(int ms, t_info *info)
 {
-	struct timeval	start;
+	long	start;
 
-	gettimeofday(&start, NULL);
-	while (1)
+	start = timestamp();
+	while (true)
 	{
 		if (elapsed_time_as_ms(start) >= ms)
 			break ;
+		if (timestamp() - info->last_meal_time >= info->w->time_to_die)
+		{
+			info->is_dead = true;
+			print_died(info->w, info->philo_id);
+			exit(0);
+		}
 		usleep(100);
 	}
 }
 
-long	elapsed_time_as_ms(struct timeval start)
+long	elapsed_time_as_ms(long start)
 {
-	struct timeval	now;
-	int				elapsed_time;
+	long	elapsed_time;
 
-	gettimeofday(&now, NULL);
-	elapsed_time = (now.tv_sec - start.tv_sec) * 1000;
-	elapsed_time += (now.tv_usec - start.tv_usec) / 1000;
+	elapsed_time = timestamp() - start;
 	return (elapsed_time);
 }
 
-struct timeval	get_time_now(void)
+long	timestamp(void)
 {
 	struct timeval	now;
+	long			timestamp;
 
 	gettimeofday(&now, NULL);
-	return (now);
+	timestamp = now.tv_sec * 1000;
+	timestamp += now.tv_usec / 1000;
+	return (timestamp);
 }

@@ -6,11 +6,21 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:53:54 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:29:44 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	print_is_thinking(t_waiter *w, int philo_id)
+{
+	long	elapsed_time;
+
+	elapsed_time = elapsed_time_as_ms(w->start_time);
+	pthread_mutex_lock(w->print_mutex);
+	printf("%ld %d is thinking.\n", elapsed_time, philo_id);
+	pthread_mutex_unlock(w->print_mutex);
+}
 
 void	print_taken_fork(t_waiter *w, int philo_id)
 {
@@ -39,5 +49,15 @@ void	print_is_sleeping(t_waiter *w, int philo_id)
 	elapsed_time = elapsed_time_as_ms(w->start_time);
 	pthread_mutex_lock(w->print_mutex);
 	printf("%ld %d is sleeping.\n", elapsed_time, philo_id);
+	pthread_mutex_unlock(w->print_mutex);
+}
+
+void	print_died(t_waiter *w, int philo_id)
+{
+	long	elapsed_time;
+
+	elapsed_time = elapsed_time_as_ms(w->start_time);
+	pthread_mutex_lock(w->print_mutex);
+	printf("%ld %d died.\n", elapsed_time, philo_id);
 	pthread_mutex_unlock(w->print_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:42:16 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:04:16 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 static t_error	init_forks_mutex(t_waiter *w);
 static t_error	init_print_mutex(t_waiter *w);
+static t_error	init_eat_count(t_waiter *w);
 
 t_waiter_result	init_waiter(int argc, char **argv)
 {
 	t_waiter_result	result;
 
 	result.error = create_success();
-	result.w.start_time = get_time_now();
+	result.w.start_time = timestamp();
 	result.w.num_of_philos = ft_atouint(argv[1]);
 	result.w.num_of_forks = result.w.num_of_philos;
 	result.w.time_to_die = ft_atouint(argv[2]);
@@ -37,7 +38,12 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	if (result.error.is_error)
 		return (result);
 	result.error = init_print_mutex(&result.w);
+	if (result.error.is_error)
+		return (result);
 	result.error = init_forks_mutex(&result.w);
+	if (result.error.is_error)
+		return (result);
+	result.error = init_eat_count(&result.w);
 	if (result.error.is_error)
 		return (result);
 	return (result);
@@ -92,5 +98,13 @@ static t_error	init_print_mutex(t_waiter *w)
 		free(w->print_mutex);
 		return (create_error(ERR_MUTEX_INIT));
 	}
+	return (create_success());
+}
+
+static t_error	init_eat_count(t_waiter *w)
+{
+	w->eat_count = ft_calloc(w->num_of_philos, sizeof(int));
+	if (w->eat_count == NULL)
+		return (create_error(ERR_MEMORY));
 	return (create_success());
 }
