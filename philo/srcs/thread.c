@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:57:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:02:55 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ void	*philo_thread(void *arg)
 	t_info		*info;
 
 	info = (t_info *)arg;
-	philo_takes_forks_and_eats(info);
-	philo_sleeps(info);
+	while (true)
+	{
+		philo_takes_forks_and_eats(info);
+		philo_sleeps(info);
+	}
 	free(info);
 	return (NULL);
 }

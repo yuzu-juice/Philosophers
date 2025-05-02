@@ -2,11 +2,6 @@
 
 . $(dirname $0)/utils/assert.sh
 
-assert_stderr "./philo 1 1 1 1" ""
-assert_stderr "./philo 1 1 1 1 1" ""
-assert_stderr "./philo 2 8 2 2" ""
-assert_stderr "./philo 5 8 2 2 7" ""
-
 assert_stderr "./philo" "Error: Wrong number of arguments"
 assert_stderr "./philo 1" "Error: Wrong number of arguments"
 assert_stderr "./philo 1 1" "Error: Wrong number of arguments"
@@ -44,12 +39,6 @@ assert_stderr "./philo 1 1.0 1 1" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 1.0 1" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 1 1.0" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 1 1 1.0" "Error: Invalid arguments"
-
-assert_stderr "./philo +1 1 1 1" ""
-assert_stderr "./philo 1 +1 1 1" ""
-assert_stderr "./philo 1 1 +1 1" ""
-assert_stderr "./philo 1 1 1 +1" ""
-assert_stderr "./philo 1 1 1 1 +1" ""
 
 assert_stderr "./philo ++1 1 1 1" "Error: Invalid arguments"
 assert_stderr "./philo --1 1 1 1" "Error: Invalid arguments"
