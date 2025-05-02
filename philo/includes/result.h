@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:41:49 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:23:25 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_waiter
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_times_each_philo_must_eat;
+	int				*eat_count;
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	*print_mutex;
 }	t_waiter;

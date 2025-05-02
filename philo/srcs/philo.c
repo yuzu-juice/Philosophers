@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:43:21 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:27:18 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static t_info_result	create_info(t_waiter *w, int philo_id)
 	result.info->philo_id = philo_id;
 	result.info->left_fork_id = philo_id;
 	result.info->right_fork_id = (philo_id + 1) % w->num_of_philos;
+	result.info->w->eat_count[philo_id] = 0;
 	return (result);
 }
 

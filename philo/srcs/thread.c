@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 10:02:55 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 13:15:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	philo_takes_forks_and_eats(t_info *info)
 		fork_id_smaller = info->right_fork_id;
 		fork_id_bigger = info->left_fork_id;
 	}
+	print_is_thinking(w, info->philo_id);
 	pthread_mutex_lock(&(w->forks_mutex[fork_id_smaller]));
 	pthread_mutex_lock(&(w->forks_mutex[fork_id_bigger]));
 	print_taken_fork(w, info->philo_id);
