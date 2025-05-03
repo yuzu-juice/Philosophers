@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 17:26:44 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:22:25 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	*philo_thread(void *arg)
 	while (true)
 	{
 		is_left_fork_id_smaller = philo_takes_forks(info);
-		if (philo_eats(info, is_left_fork_id_smaller).is_error)
+		if (check_someone_died(info->w) || philo_eats(info, is_left_fork_id_smaller).is_error)
 			break ;
-		if (philo_sleeps(info).is_error)
+		if (check_someone_died(info->w) || philo_sleeps(info).is_error)
 			break ;
-		if (philo_thinks(info).is_error)
+		if (check_someone_died(info->w) || philo_thinks(info).is_error)
 			break ;
 	}
 	free(info);
@@ -40,6 +40,7 @@ void	*philo_thread(void *arg)
 static t_error	philo_thinks(t_info *info)
 {
 	t_error	error;
+
 
 	error = ft_msleep(10, info);
 	print_is_thinking(info->w, info->philo_id);

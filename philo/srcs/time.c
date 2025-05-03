@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 17:26:41 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:10:54 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_error	ft_msleep(int ms, t_info *info)
 		if (timestamp() - info->last_meal_time >= info->w->time_to_die)
 		{
 			info->w->is_dead[info->philo_id] = true;
-			print_died(info->w, info->philo_id);
 			return (create_error(ERR_PHILO_DIED));
 		}
+		if (check_someone_died(info->w))
+			return (create_error(ERR_PHILO_DIED));
 		usleep(100);
 	}
 	return (create_success());

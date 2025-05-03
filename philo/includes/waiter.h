@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   watchdog.c                                         :+:      :+:    :+:   */
+/*   waiter.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 20:21:56 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/03 20:24:11 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/03 20:26:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#ifndef WAITER_H
+# define WAITER_H
 
-void	*watchdog(void *arg)
-{
-	t_waiter	*w;
+# include "result.h"
 
-	w = (t_waiter *)arg;
-	while (true)
-	{
-		if (check_someone_died(w))
-			break ;
-		usleep(100);
-	}
-	return (NULL);
-}
+t_error	init_forks_mutex(t_waiter *w);
+t_error	init_print_mutex(t_waiter *w);
+t_error	init_eat_count(t_waiter *w);
+t_error	init_is_dead(t_waiter *w);
+
+#endif
