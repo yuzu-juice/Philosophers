@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 20:25:31 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 00:18:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "thread.h"
 # include "print.h"
 # include "time.h"
+# include "forks.h"
 
 # include <pthread.h>
 # include <stdio.h>

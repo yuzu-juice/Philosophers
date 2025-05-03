@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_someone_died.c                               :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 19:52:17 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 00:23:04 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/04 00:13:07 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/04 00:29:55 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/philo.h"
+#include "../includes/philo.h"
 
-bool	check_someone_died(t_waiter *w)
+void	take_forks(pthread_mutex_t *forks_mutex, int fork_id_1, int fork_id_2)
 {
-	int	i;
+	pthread_mutex_lock(&forks_mutex[fork_id_1]);
+	pthread_mutex_lock(&forks_mutex[fork_id_2]);
+}
 
-	i = 0;
-	while (i < w->num_of_philos)
-	{
-		if (w->is_dead[i])
-		{
-			pthread_mutex_lock(w->print_mutex);
-			printf("Philo %d dead detected\n", i);
-			pthread_mutex_unlock(w->print_mutex);
-			return (true);
-		}
-		i++;
-	}
-	return (false);
+void	put_forks(pthread_mutex_t *forks_mutex, int fork_id_1, int fork_id_2)
+{
+	pthread_mutex_unlock(&forks_mutex[fork_id_1]);
+	pthread_mutex_unlock(&forks_mutex[fork_id_2]);
 }

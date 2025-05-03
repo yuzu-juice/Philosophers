@@ -4,6 +4,7 @@ SRCS	= srcs/main.c\
 			srcs/error.c\
 			srcs/waiter.c\
 			srcs/philo.c\
+			srcs/forks.c\
 			srcs/thread.c\
 			srcs/time.c\
 			srcs/print.c\

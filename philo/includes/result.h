@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 19:48:30 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 00:35:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ typedef struct s_info
 {
 	t_waiter	*w;
 	int			philo_id;
-	int			left_fork_id;
-	int			right_fork_id;
+	int			l_fork_id;
+	int			r_fork_id;
 	long		last_meal_time;
 }	t_info;
 
