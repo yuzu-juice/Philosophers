@@ -2,13 +2,17 @@ NAME	= philo
 SRCS	= srcs/main.c\
 			srcs/init.c\
 			srcs/error.c\
+			srcs/waiter.c\
 			srcs/philo.c\
+			srcs/forks.c\
 			srcs/thread.c\
 			srcs/time.c\
 			srcs/print.c\
+			srcs/watchdog.c\
 			srcs/utils/ft_atouint.c\
 			srcs/utils/ft_calloc.c\
-			srcs/utils/ft_putstr.c
+			srcs/utils/ft_putstr.c\
+			srcs/utils/check_someone_died.c
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= includes/philo.h\
 			includes/error_messages.h\
@@ -18,6 +22,7 @@ HEADERS	= includes/philo.h\
 			includes/thread.h\
 			includes/time.h\
 			includes/print.h\
+			includes/waiter.h
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 
@@ -56,6 +61,6 @@ integration: all
 tests: norm integration
 
 valgrind: all
-	valgrind --leak-check=full --show-leak-kinds=all ./philo
+	valgrind --leak-check=full --show-leak-kinds=all ./philo 5 400 100 100
 
 .PHONY: all clean fclean re norm integration tests valgrind

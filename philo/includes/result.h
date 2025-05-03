@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:06:41 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 00:35:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_waiter
 	int				time_to_sleep;
 	int				num_of_times_each_philo_must_eat;
 	int				*eat_count;
+	bool			*is_dead;
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	*print_mutex;
 }	t_waiter;
@@ -60,10 +61,9 @@ typedef struct s_info
 {
 	t_waiter	*w;
 	int			philo_id;
-	int			left_fork_id;
-	int			right_fork_id;
+	int			l_fork_id;
+	int			r_fork_id;
 	long		last_meal_time;
-	bool		is_dead;
 }	t_info;
 
 typedef struct s_info_result

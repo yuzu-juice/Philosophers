@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 20:55:18 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:37:41 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:26:38 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 # define ERR_THREAD_CREATE "Thread creation failed"
 # define ERR_THREAD_JOIN "Thread join failed"
 # define ERR_MUTEX_INIT "Mutex initialization failed"
+# define ERR_PHILO_DIED "A philosopher died"
 
 #endif

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.h                                             :+:      :+:    :+:   */
+/*   watchdog.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:27:28 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/03 20:21:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_H
-# define TIME_H
+#include "../includes/philo.h"
 
-# include <sys/time.h>
+void	*watchdog(void *arg)
+{
+	t_waiter	*w;
 
-t_error	ft_msleep(int ms, t_info *info);
-long	elapsed_time_as_ms(long start);
-long	timestamp(void);
-
-#endif
+	w = (t_waiter *)arg;
+	while (true)
+	{
+		if (check_someone_died(w))
+			break ;
+		usleep(100);
+	}
+	return (NULL);
+}

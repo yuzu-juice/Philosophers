@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.h                                             :+:      :+:    :+:   */
+/*   check_someone_died.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:27:28 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/03 19:52:17 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/04 00:23:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_H
-# define TIME_H
+#include "../../includes/philo.h"
 
-# include <sys/time.h>
+bool	check_someone_died(t_waiter *w)
+{
+	int	i;
 
-t_error	ft_msleep(int ms, t_info *info);
-long	elapsed_time_as_ms(long start);
-long	timestamp(void);
-
-#endif
+	i = 0;
+	while (i < w->num_of_philos)
+	{
+		if (w->is_dead[i])
+		{
+			pthread_mutex_lock(w->print_mutex);
+			printf("Philo %d dead detected\n", i);
+			pthread_mutex_unlock(w->print_mutex);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 09:39:30 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 00:18:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # include "exit.h"
 # include "error_messages.h"
 # include "utils.h"
+# include "waiter.h"
 # include "thread.h"
 # include "print.h"
 # include "time.h"
+# include "forks.h"
 
 # include <pthread.h>
 # include <stdio.h>

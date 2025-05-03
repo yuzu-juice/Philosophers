@@ -5,65 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:04:16 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/03 20:26:10 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static t_error	init_forks_mutex(t_waiter *w);
-static t_error	init_print_mutex(t_waiter *w);
-static t_error	init_eat_count(t_waiter *w);
-
-t_waiter_result	init_waiter(int argc, char **argv)
-{
-	t_waiter_result	result;
-
-	result.error = create_success();
-	result.w.start_time = timestamp();
-	result.w.num_of_philos = ft_atouint(argv[1]);
-	result.w.num_of_forks = result.w.num_of_philos;
-	result.w.time_to_die = ft_atouint(argv[2]);
-	result.w.time_to_eat = ft_atouint(argv[3]);
-	result.w.time_to_sleep = ft_atouint(argv[4]);
-	if (argc == 6)
-		result.w.num_of_times_each_philo_must_eat = ft_atouint(argv[5]);
-	else
-		result.w.num_of_times_each_philo_must_eat = -1;
-	if (result.w.num_of_philos <= 0 || result.w.time_to_die <= 0
-		|| result.w.time_to_eat <= 0 || result.w.time_to_sleep <= 0
-		|| (argc == 6 && result.w.num_of_times_each_philo_must_eat <= 0))
-		result.error = create_error(ERR_INVALID_ARGS);
-	if (result.error.is_error)
-		return (result);
-	result.error = init_print_mutex(&result.w);
-	if (result.error.is_error)
-		return (result);
-	result.error = init_forks_mutex(&result.w);
-	if (result.error.is_error)
-		return (result);
-	result.error = init_eat_count(&result.w);
-	if (result.error.is_error)
-		return (result);
-	return (result);
-}
-
-void	cleanup_waiter(t_waiter *w)
-{
-	int	i;
-
-	i = 0;
-	while (i < w->num_of_forks)
-	{
-		pthread_mutex_destroy(&(w->forks_mutex[i]));
-		i++;
-	}
-	free(w->forks_mutex);
-	w->forks_mutex = NULL;
-}
-
-static t_error	init_forks_mutex(t_waiter *w)
+t_error	init_forks_mutex(t_waiter *w)
 {
 	int	i;
 
@@ -88,7 +37,7 @@ static t_error	init_forks_mutex(t_waiter *w)
 	return (create_success());
 }
 
-static t_error	init_print_mutex(t_waiter *w)
+t_error	init_print_mutex(t_waiter *w)
 {
 	w->print_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (w->print_mutex == NULL)
@@ -101,10 +50,18 @@ static t_error	init_print_mutex(t_waiter *w)
 	return (create_success());
 }
 
-static t_error	init_eat_count(t_waiter *w)
+t_error	init_eat_count(t_waiter *w)
 {
 	w->eat_count = ft_calloc(w->num_of_philos, sizeof(int));
 	if (w->eat_count == NULL)
+		return (create_error(ERR_MEMORY));
+	return (create_success());
+}
+
+t_error	init_is_dead(t_waiter *w)
+{
+	w->is_dead = ft_calloc(w->num_of_philos, sizeof(bool));
+	if (w->is_dead == NULL)
 		return (create_error(ERR_MEMORY));
 	return (create_success());
 }

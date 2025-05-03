@@ -61,3 +61,7 @@ assert_stderr "./philo 1 999999999999999 1 1" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 999999999999999 1" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 1 999999999999999" "Error: Invalid arguments"
 assert_stderr "./philo 1 1 1 1 999999999999999" "Error: Invalid arguments"
+
+# 残りのテストで以下を確認
+# 無限ループに陥るケースがないこと
+# valgrindでメモリリークを検知しないこと

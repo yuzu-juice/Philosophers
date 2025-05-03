@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.h                                             :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 14:27:28 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/04 00:13:07 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/04 00:29:55 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_H
-# define TIME_H
+#include "../includes/philo.h"
 
-# include <sys/time.h>
+void	take_forks(pthread_mutex_t *forks_mutex, int fork_id_1, int fork_id_2)
+{
+	pthread_mutex_lock(&forks_mutex[fork_id_1]);
+	pthread_mutex_lock(&forks_mutex[fork_id_2]);
+}
 
-t_error	ft_msleep(int ms, t_info *info);
-long	elapsed_time_as_ms(long start);
-long	timestamp(void);
-
-#endif
+void	put_forks(pthread_mutex_t *forks_mutex, int fork_id_1, int fork_id_2)
+{
+	pthread_mutex_unlock(&forks_mutex[fork_id_1]);
+	pthread_mutex_unlock(&forks_mutex[fork_id_2]);
+}
