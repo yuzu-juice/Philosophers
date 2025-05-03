@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 20:24:46 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:30:34 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	cleanup_waiter(t_waiter *w)
 		pthread_mutex_destroy(&(w->forks_mutex[i]));
 		i++;
 	}
+	free(w->eat_count);
+	free(w->is_dead);
 	free(w->forks_mutex);
+	free(w->print_mutex);
 	w->forks_mutex = NULL;
 }

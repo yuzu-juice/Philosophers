@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 20:16:59 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/03 20:32:00 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_error	philo(t_waiter w)
 		i++;
 	}
 	pthread_join(watchdog_th, NULL);
+	free(result.tid);
 	return (create_success());
 }
 
