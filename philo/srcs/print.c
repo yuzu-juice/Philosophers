@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 16:50:47 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 01:45:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ void	print_died(t_waiter *w, int philo_id)
 	elapsed_time = elapsed_time_as_ms(w->start_time);
 	pthread_mutex_lock(w->print_mutex);
 	printf("%ld %d died\n", elapsed_time, philo_id);
+	fflush(stdout);
 	pthread_mutex_unlock(w->print_mutex);
 }

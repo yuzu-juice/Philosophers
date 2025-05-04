@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 00:40:28 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 01:37:14 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*philo_thread(void *arg)
 	while (true)
 	{
 		is_l_fork_id_smaller = philo_takes_forks(info);
-		if (check_someone_died(w))
+		if (check_someone_died(w) != -1)
 		{
 			if (is_l_fork_id_smaller)
 				put_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
@@ -37,9 +37,9 @@ void	*philo_thread(void *arg)
 			break ;
 		}
 		if (philo_eats(info, is_l_fork_id_smaller).is_error
-			|| check_someone_died(w) || philo_sleeps(info).is_error
-			|| check_someone_died(w) || philo_thinks(info).is_error
-			|| check_someone_died(w))
+			|| check_someone_died(w) != -1 || philo_sleeps(info).is_error
+			|| check_someone_died(w) != -1 || philo_thinks(info).is_error
+			|| check_someone_died(w) != -1)
 			break ;
 	}
 	free(info);
@@ -50,8 +50,8 @@ static t_error	philo_thinks(t_info *info)
 {
 	t_error	error;
 
-	error = ft_msleep(10, info);
 	print_is_thinking(info->w, info->philo_id);
+	error = ft_msleep(10, info);
 	return (error);
 }
 
@@ -81,6 +81,7 @@ static t_error	philo_eats(t_info *info, bool is_l_fork_id_smaller)
 
 	w = info->w;
 	philo_id = info->philo_id;
+	info->last_meal_time = timestamp();
 	print_is_eating(w, philo_id);
 	error = ft_msleep(w->time_to_eat, info);
 	if (is_l_fork_id_smaller)
@@ -95,7 +96,7 @@ static t_error	philo_sleeps(t_info *info)
 {
 	t_error	error;
 
-	error = ft_msleep(info->w->time_to_sleep, info);
 	print_is_sleeping(info->w, info->philo_id);
+	error = ft_msleep(info->w->time_to_sleep, info);
 	return (error);
 }

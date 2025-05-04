@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/03 20:10:54 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 22:04:43 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,26 @@
 t_error	ft_msleep(int ms, t_info *info)
 {
 	long	start;
+	bool	has_died;
 
 	start = timestamp();
+	has_died = false;
 	while (true)
 	{
 		if (elapsed_time_as_ms(start) >= ms)
 			break ;
+		pthread_mutex_lock(info->w->is_dead_mutex);
 		if (timestamp() - info->last_meal_time >= info->w->time_to_die)
 		{
 			info->w->is_dead[info->philo_id] = true;
-			return (create_error(ERR_PHILO_DIED));
+			has_died = true;
 		}
-		if (check_someone_died(info->w))
+		pthread_mutex_unlock(info->w->is_dead_mutex);
+		if (has_died)
 			return (create_error(ERR_PHILO_DIED));
-		usleep(100);
+		if (check_someone_died(info->w) != -1)
+			return (create_error(ERR_PHILO_DIED));
+		usleep(1000);
 	}
 	return (create_success());
 }
