@@ -6,6 +6,7 @@
         "libft.h": "c",
         "utils.h": "c",
         "__locale": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "time.h": "c"
     }
 }

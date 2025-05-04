@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 00:35:03 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/04 21:27:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_waiter
 	bool			*is_dead;
 	pthread_mutex_t	*forks_mutex;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*eat_count_mutex;
+	pthread_mutex_t	*is_dead_mutex;
 }	t_waiter;
 
 typedef struct s_error
