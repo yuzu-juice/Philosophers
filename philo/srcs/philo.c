@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 00:35:24 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 02:06:10 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_error	philo(t_waiter w)
 	int						i;
 
 	if (w.num_of_philos == 1)
+	{
+		printf("%d %d died\n", w.time_to_die, 0);
 		return (create_success());
+	}
 	if (pthread_create(&watchdog_th, NULL, watchdog, &w) != 0)
 		return (create_error(ERR_THREAD_CREATE));
 	result = create_threads(&w);
