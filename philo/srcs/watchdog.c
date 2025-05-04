@@ -6,15 +6,15 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 01:51:22 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 01:55:57 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool are_all_philos_full(t_waiter *w);
+static bool	are_all_philos_full(t_waiter *w);
 
-void *watchdog(void *arg)
+void	*watchdog(void *arg)
 {
 	t_waiter	*w;
 	int			dead_philo_id;
