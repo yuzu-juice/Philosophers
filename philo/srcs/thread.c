@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 11:40:33 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:42:35 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static t_error	philo_thinks(t_info *info)
 	t_error	error;
 
 	print_status(info->w, info->philo_id, IS_THINKING);
-	error = ft_msleep(10, info);
+	// Wait until the philosopher can take forks
+	// error = ft_msleep(1, info);
 	return (error);
 }
 
