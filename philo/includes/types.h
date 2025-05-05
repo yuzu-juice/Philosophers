@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:45:04 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:58:13 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 
-typedef pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
 
 typedef enum e_exit_failure
 {

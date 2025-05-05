@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:43:27 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:57:09 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,12 @@ void	cleanup_waiter(t_waiter *w)
 	pthread_mutex_destroy(w->print_mutex);
 	pthread_mutex_destroy(w->eat_count_mutex);
 	pthread_mutex_destroy(w->is_dead_mutex);
-	free(w->eat_count);
-	free(w->is_dead);
-	free(w->forks_mutex);
-	free(w->print_mutex);
-	free(w->eat_count_mutex);
-	free(w->is_dead_mutex);
-	w->eat_count = NULL;
-	w->is_dead = NULL;
-	w->forks_mutex = NULL;
-	w->print_mutex = NULL;
-	w->eat_count_mutex = NULL;
-	w->is_dead_mutex = NULL;
+	ft_free(w->eat_count);
+	ft_free(w->is_dead);
+	ft_free(w->forks_mutex);
+	ft_free(w->print_mutex);
+	ft_free(w->eat_count_mutex);
+	ft_free(w->is_dead_mutex);
 }
 
 static t_error	parse_args_and_validate(t_waiter *w, int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 02:06:10 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:57:39 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_error	philo(t_waiter w)
 		i++;
 	}
 	pthread_join(watchdog_th, NULL);
-	free(result.tid);
+	ft_free(result.tid);
 	return (create_success());
 }
 
@@ -63,7 +63,7 @@ static t_pthread_ptr_result	create_threads(t_waiter *w)
 		info = info_result.info;
 		if (pthread_create(&result.tid[i], NULL, philo_thread, info) != 0)
 		{
-			free(info);
+			ft_free(info);
 			return (create_pthread_error(result.tid, ERR_THREAD_CREATE));
 		}
 		i++;
@@ -99,6 +99,6 @@ static t_pthread_ptr_result	create_pthread_error(pthread_t *tid, char *msg)
 	result.error.is_error = true;
 	result.error.msg = msg;
 	if (tid != NULL)
-		free(tid);
+		ft_free(tid);
 	return (result);
 }
