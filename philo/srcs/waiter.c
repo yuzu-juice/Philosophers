@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 15:37:01 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:43:27 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ static t_error	init_resources(t_waiter *w)
 {
 	t_error	error;
 
-	error = init_print_mutex(w);
+	error = init_forks(w);
 	if (error.is_error)
 		return (error);
-	error = init_forks_mutex(w);
+	error = init_print(w);
 	if (error.is_error)
 		return (error);
 	error = init_eat_count(w);

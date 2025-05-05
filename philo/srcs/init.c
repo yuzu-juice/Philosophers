@@ -6,13 +6,13 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 21:30:45 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:42:44 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_error	init_forks_mutex(t_waiter *w)
+t_error	init_forks(t_waiter *w)
 {
 	int	i;
 
@@ -37,7 +37,7 @@ t_error	init_forks_mutex(t_waiter *w)
 	return (create_success());
 }
 
-t_error	init_print_mutex(t_waiter *w)
+t_error	init_print(t_waiter *w)
 {
 	w->print_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
 	if (w->print_mutex == NULL)
