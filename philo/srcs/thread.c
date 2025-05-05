@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 01:37:14 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 11:40:33 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_error	philo_thinks(t_info *info)
 {
 	t_error	error;
 
-	print_is_thinking(info->w, info->philo_id);
+	print_status(info->w, info->philo_id, IS_THINKING);
 	error = ft_msleep(10, info);
 	return (error);
 }
@@ -69,7 +69,7 @@ static bool	philo_takes_forks(t_info *info)
 		take_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
 	else
 		take_forks(w->forks_mutex, info->r_fork_id, info->l_fork_id);
-	print_taken_fork(w, info->philo_id);
+	print_status(w, info->philo_id, TAKEN_FORKS);
 	return (is_l_fork_id_smaller);
 }
 
@@ -82,7 +82,7 @@ static t_error	philo_eats(t_info *info, bool is_l_fork_id_smaller)
 	w = info->w;
 	philo_id = info->philo_id;
 	info->last_meal_time = timestamp();
-	print_is_eating(w, philo_id);
+	print_status(w, philo_id, IS_EATING);
 	error = ft_msleep(w->time_to_eat, info);
 	if (is_l_fork_id_smaller)
 		put_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
@@ -96,7 +96,7 @@ static t_error	philo_sleeps(t_info *info)
 {
 	t_error	error;
 
-	print_is_sleeping(info->w, info->philo_id);
+	print_status(info->w, info->philo_id, IS_SLEEPING);
 	error = ft_msleep(info->w->time_to_sleep, info);
 	return (error);
 }
