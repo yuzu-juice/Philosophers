@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:57:49 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:50:08 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	*philo_thread(void *arg)
 		if (check_someone_died(w) != -1)
 		{
 			if (is_l_fork_id_smaller)
-				put_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
+				put_forks(w->forks, w->forks_mutex, info->l_fork_id, info->r_fork_id);
 			else
-				put_forks(w->forks_mutex, info->r_fork_id, info->l_fork_id);
+				put_forks(w->forks, w->forks_mutex, info->r_fork_id, info->l_fork_id);
 			break ;
 		}
 		if (philo_eats(info, is_l_fork_id_smaller).is_error
@@ -67,9 +67,9 @@ static bool	philo_takes_forks(t_info *info)
 	else
 		is_l_fork_id_smaller = false;
 	if (is_l_fork_id_smaller)
-		take_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
+		take_forks(w->forks, w->forks_mutex, info->l_fork_id, info->r_fork_id);
 	else
-		take_forks(w->forks_mutex, info->r_fork_id, info->l_fork_id);
+		take_forks(w->forks, w->forks_mutex, info->r_fork_id, info->l_fork_id);
 	print_status(w, info->philo_id, TAKEN_FORKS);
 	return (is_l_fork_id_smaller);
 }
@@ -86,9 +86,9 @@ static t_error	philo_eats(t_info *info, bool is_l_fork_id_smaller)
 	print_status(w, philo_id, IS_EATING);
 	error = ft_msleep(w->time_to_eat, info);
 	if (is_l_fork_id_smaller)
-		put_forks(w->forks_mutex, info->l_fork_id, info->r_fork_id);
+		put_forks(w->forks, w->forks_mutex, info->l_fork_id, info->r_fork_id);
 	else
-		put_forks(w->forks_mutex, info->r_fork_id, info->l_fork_id);
+		put_forks(w->forks, w->forks_mutex, info->r_fork_id, info->l_fork_id);
 	w->eat_count[philo_id]++;
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:57:09 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:31:00 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,11 @@ t_waiter_result	init_waiter(int argc, char **argv)
 
 void	cleanup_waiter(t_waiter *w)
 {
-	int	i;
-
-	i = 0;
-	while (i < w->num_of_forks)
-	{
-		pthread_mutex_destroy(&(w->forks_mutex[i]));
-		i++;
-	}
+	pthread_mutex_destroy(w->forks_mutex);
 	pthread_mutex_destroy(w->print_mutex);
 	pthread_mutex_destroy(w->eat_count_mutex);
 	pthread_mutex_destroy(w->is_dead_mutex);
+	ft_free(w->forks);
 	ft_free(w->eat_count);
 	ft_free(w->is_dead);
 	ft_free(w->forks_mutex);
