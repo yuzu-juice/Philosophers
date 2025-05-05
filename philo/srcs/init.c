@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:42:44 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:45:35 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_error	init_forks(t_waiter *w)
 {
 	int	i;
 
-	w->forks_mutex = ft_calloc(w->num_of_forks, sizeof(pthread_mutex_t));
+	w->forks_mutex = ft_calloc(w->num_of_forks, sizeof(t_mutex));
 	if (w->forks_mutex == NULL)
 		return (create_error(ERR_MEMORY));
 	i = 0;
@@ -39,7 +39,7 @@ t_error	init_forks(t_waiter *w)
 
 t_error	init_print(t_waiter *w)
 {
-	w->print_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	w->print_mutex = ft_calloc(1, sizeof(t_mutex));
 	if (w->print_mutex == NULL)
 		return (create_error(ERR_MEMORY));
 	if (pthread_mutex_init(w->print_mutex, NULL) != 0)
@@ -55,7 +55,7 @@ t_error	init_eat_count(t_waiter *w)
 	w->eat_count = ft_calloc(w->num_of_philos, sizeof(int));
 	if (w->eat_count == NULL)
 		return (create_error(ERR_MEMORY));
-	w->eat_count_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	w->eat_count_mutex = ft_calloc(1, sizeof(t_mutex));
 	if (w->eat_count_mutex == NULL)
 	{
 		free(w->eat_count);
@@ -75,7 +75,7 @@ t_error	init_is_dead(t_waiter *w)
 	w->is_dead = ft_calloc(w->num_of_philos, sizeof(bool));
 	if (w->is_dead == NULL)
 		return (create_error(ERR_MEMORY));
-	w->is_dead_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	w->is_dead_mutex = ft_calloc(1, sizeof(t_mutex));
 	if (w->is_dead_mutex == NULL)
 	{
 		free(w->is_dead);

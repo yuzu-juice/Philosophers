@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:42:37 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:45:04 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdlib.h>
+
+typedef pthread_mutex_t t_mutex;
 
 typedef enum e_exit_failure
 {
@@ -34,19 +36,19 @@ typedef enum e_print_status
 
 typedef struct s_waiter
 {
-	long			start_time;
-	int				num_of_philos;
-	int				num_of_forks;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				num_of_times_each_philo_must_eat;
-	int				*eat_count;
-	bool			*is_dead;
-	pthread_mutex_t	*forks_mutex;
-	pthread_mutex_t	*print_mutex;
-	pthread_mutex_t	*eat_count_mutex;
-	pthread_mutex_t	*is_dead_mutex;
+	long	start_time;
+	int		num_of_philos;
+	int		num_of_forks;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		num_of_times_each_philo_must_eat;
+	int		*eat_count;
+	bool	*is_dead;
+	t_mutex	*forks_mutex;
+	t_mutex	*print_mutex;
+	t_mutex	*eat_count_mutex;
+	t_mutex	*is_dead_mutex;
 }	t_waiter;
 
 typedef struct s_error
