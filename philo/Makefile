@@ -17,8 +17,6 @@ OBJS	= $(SRCS:.c=.o)
 HEADERS	= includes/philo.h\
 			includes/error_messages.h\
 			includes/utils.h\
-			includes/exit.h\
-			includes/result.h\
 			includes/thread.h\
 			includes/time.h\
 			includes/print.h\

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 01:57:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 17:15:17 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 17:39:17 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include "types.h"
 
 int		ft_atouint(char *str);
 void	ft_putstr_fd(char *s, int fd);

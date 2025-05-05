@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   result.h                                           :+:      :+:    :+:   */
+/*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 19:48:56 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 21:27:58 by takitaga         ###   ########.fr       */
+/*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
+/*   Updated: 2025/05/05 17:40:31 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RESULT_H
-# define RESULT_H
+#ifndef TYPES_H
+# define TYPES_H
 
-# include "philo.h"
 # include <stdbool.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdlib.h>
+
+typedef enum e_exit_failure
+{
+	FAILURE = EXIT_FAILURE
+}	t_exit_failure;
+
+typedef enum e_print_status
+{
+	TAKEN_FORKS,
+	IS_EATING,
+	IS_SLEEPING,
+	IS_THINKING,
+	DIED,
+}	t_print_status;
 
 typedef struct s_waiter
 {
