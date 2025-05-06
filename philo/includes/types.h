@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/06 20:37:48 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/07 00:24:11 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_waiter
 	int		time_to_sleep;
 	int		num_of_times_each_philo_must_eat;
 	bool	*forks;
+	bool	should_stop;
 	t_mutex	*forks_mutex;
 	t_mutex	*print_mutex;
 }	t_waiter;
@@ -85,9 +86,10 @@ typedef struct s_waiter_result
 
 typedef struct s_thread_arg
 {
-	t_waiter *w;
-	int      philo_id;
+	t_waiter	*w;
+	int			philo_id;
 }	t_thread_arg;
+
 typedef struct s_pthread_t_ptr_result
 {
 	pthread_t		*tid;

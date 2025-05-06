@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/06 19:31:04 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/07 00:40:09 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 
 t_error	init_forks(t_waiter *w)
 {
+	int	i;
+
 	w->forks = ft_calloc(w->num_of_forks, sizeof(bool));
 	if (w->forks == NULL)
 		return (create_error(ERR_MEMORY));
-	w->forks_mutex = ft_calloc(1, sizeof(t_mutex));
+	w->forks_mutex = ft_calloc(w->num_of_forks, sizeof(t_mutex));
 	if (w->forks_mutex == NULL)
 	{
 		ft_free(w->forks);
 		return (create_error(ERR_MEMORY));
 	}
-	if (pthread_mutex_init(w->forks_mutex, NULL)!= 0)
+	i = 0;
+	while (i < w->num_of_forks)
 	{
-		ft_free(w->forks);
-		ft_free(w->forks_mutex);
-		return (create_error(ERR_MUTEX_INIT));
+		if (pthread_mutex_init(&w->forks_mutex[i], NULL) != 0)
+		{
+			ft_free(w->forks);
+			while (--i >= 0)
+				pthread_mutex_destroy(&w->forks_mutex[i]);
+			ft_free(w->forks_mutex);
+			return (create_error(ERR_MUTEX_INIT));
+		}
+		i++;
 	}
 	return (create_success());
 }

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/06 19:00:31 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 23:56:03 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ void	*watchdog(void *arg)
 		dead_philo_id = check_someone_died(w);
 		if (dead_philo_id != -1)
 		{
-			usleep(1000);
 			print_status(w, dead_philo_id, DIED);
 			break ;
 		}
 		if (are_all_philos_full(w))
 		{
-			w->philos[0].is_dead = true;
+			w->should_stop = true;
 			break ;
 		}
 		usleep(100);

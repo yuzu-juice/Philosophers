@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/06 19:18:27 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/07 00:24:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_error	ft_msleep(int ms, t_waiter *w, int philo_id)
 	long	start;
 	t_philo	*philo;
 
-	philo =  &w->philos[philo_id];
+	philo = &w->philos[philo_id];
 	start = timestamp();
 	while (true)
 	{

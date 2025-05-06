@@ -6,13 +6,13 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 11:41:11 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/07 00:44:34 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	print_status(t_waiter *w, int philo_id, t_print_status s)
+t_error	print_status(t_waiter *w, int philo_id, t_print_status s)
 {
 	long	elapsed_time;
 
@@ -29,4 +29,5 @@ void	print_status(t_waiter *w, int philo_id, t_print_status s)
 	else if (s == DIED)
 		printf("%ld %d died\n", elapsed_time, philo_id);
 	pthread_mutex_unlock(w->print_mutex);
+	return (create_success());
 }
