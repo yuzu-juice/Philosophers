@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:40:25 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:50:16 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <sys/time.h>
 # include "types.h"
 
-t_error	ft_msleep(int ms, t_info *info);
+t_error ft_msleep(int ms, t_waiter *w, int philo_id);
 long	elapsed_time_as_ms(long start);
 long	timestamp(void);
 

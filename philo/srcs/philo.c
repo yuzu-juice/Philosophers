@@ -6,99 +6,117 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 17:57:39 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 20:37:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static t_pthread_ptr_result	create_threads(t_waiter *w);
-static t_pthread_ptr_result	create_pthread_error(pthread_t *tid, char *msg);
-static t_info_result		create_info(t_waiter *w, int philo_id);
+static t_pthread_ptr_result	create_philo_threads(t_waiter *w);
+static t_philo_result		init_philo(t_waiter *w, int philo_id);
 
 t_error	philo(t_waiter w)
 {
-	t_pthread_ptr_result	result;
-	pthread_t				watchdog_th;
-	int						i;
+    t_pthread_ptr_result	result;
+    pthread_t				watchdog_th;
+    int						i;
 
-	if (w.num_of_philos == 1)
-	{
-		printf("%d %d died\n", w.time_to_die, 0);
-		return (create_success());
-	}
-	if (pthread_create(&watchdog_th, NULL, watchdog, &w) != 0)
-		return (create_error(ERR_THREAD_CREATE));
-	result = create_threads(&w);
-	if (result.error.is_error)
-		return (result.error);
-	i = 0;
-	while (i < w.num_of_philos)
-	{
-		pthread_join(result.tid[i], NULL);
-		i++;
-	}
-	pthread_join(watchdog_th, NULL);
-	ft_free(result.tid);
-	return (create_success());
+    if (w.num_of_philos == 1)
+    {
+        printf("%d %d died\n", w.time_to_die, 0);
+        return (create_success());
+    }
+    if (pthread_create(&watchdog_th, NULL, watchdog, &w) != 0)
+        return (create_error(ERR_THREAD_CREATE));
+    result = create_philo_threads(&w);
+    if (result.error.is_error)
+    {
+        if (result.tid)
+            ft_free(result.tid);
+        if (result.args)
+            ft_free(result.args);
+        return (result.error);
+    }
+    i = 0;
+    while (i < w.num_of_philos)
+    {
+        pthread_join(result.tid[i], NULL);
+        i++;
+    }
+    pthread_join(watchdog_th, NULL);
+    ft_free(result.tid);
+    ft_free(result.args);
+    return (create_success());
 }
 
-static t_pthread_ptr_result	create_threads(t_waiter *w)
+static t_pthread_ptr_result	create_philo_threads(t_waiter *w)
 {
-	t_pthread_ptr_result	result;
-	t_info_result			info_result;
-	t_info					*info;
-	int						i;
+    t_pthread_ptr_result	result;
+    t_philo_result			philo_result;
+    t_philo					*philo_instance;
+    int						i;
 
-	result.error = create_success();
-	i = 0;
-	result.tid = ft_calloc(w->num_of_philos, sizeof(pthread_t));
-	if (result.tid == NULL)
-		return (create_pthread_error(result.tid, ERR_MEMORY));
-	while (i < w->num_of_philos)
-	{
-		info_result = create_info(w, i);
-		if (info_result.error.is_error)
-			return (create_pthread_error(result.tid, info_result.error.msg));
-		info = info_result.info;
-		if (pthread_create(&result.tid[i], NULL, philo_thread, info) != 0)
-		{
-			ft_free(info);
-			return (create_pthread_error(result.tid, ERR_THREAD_CREATE));
-		}
-		i++;
-	}
-	return (result);
+    result.error = create_success();
+    result.tid = NULL;
+    result.args = NULL;
+    i = 0;
+
+    result.tid = ft_calloc(w->num_of_philos, sizeof(pthread_t));
+    if (result.tid == NULL)
+    {
+        result.error = create_error(ERR_MEMORY);
+        return (result);
+    }
+
+    result.args = ft_calloc(w->num_of_philos, sizeof(t_thread_arg));
+    if (result.args == NULL)
+    {
+        result.error = create_error(ERR_MEMORY);
+        return (result);
+    }
+
+    while (i < w->num_of_philos)
+    {
+        philo_result = init_philo(w, i);
+        if (philo_result.error.is_error)
+        {
+            result.error = philo_result.error;
+            return (result);
+        }
+        philo_instance = philo_result.philo;
+        w->philos[i] = *philo_instance;
+
+        result.args[i].w = w;
+        result.args[i].philo_id = i;
+
+        if (pthread_create(&result.tid[i], NULL, philo_thread, &result.args[i]) != 0)
+        {
+            ft_free(philo_instance);
+            result.error = create_error(ERR_THREAD_CREATE);
+            return (result);
+        }
+        ft_free(philo_instance);
+        i++;
+    }
+    return (result);
 }
 
-static t_info_result	create_info(t_waiter *w, int philo_id)
+static t_philo_result	init_philo(t_waiter *w, int philo_id)
 {
-	t_info_result	result;
+    t_philo_result	result;
 
-	result.error = create_success();
-	result.info = ft_calloc(1, sizeof(t_info));
-	if (result.info == NULL)
-	{
-		result.error = create_error(ERR_MEMORY);
-		return (result);
-	}
-	result.info->w = w;
-	result.info->philo_id = philo_id;
-	result.info->l_fork_id = philo_id;
-	result.info->r_fork_id = (philo_id + 1) % w->num_of_philos;
-	result.info->w->eat_count[philo_id] = 0;
-	result.info->last_meal_time = timestamp();
-	return (result);
-}
-
-static t_pthread_ptr_result	create_pthread_error(pthread_t *tid, char *msg)
-{
-	t_pthread_ptr_result	result;
-
-	result.tid = tid;
-	result.error.is_error = true;
-	result.error.msg = msg;
-	if (tid != NULL)
-		ft_free(tid);
-	return (result);
+    result.philo = ft_calloc(1, sizeof(t_philo));
+    if (result.philo == NULL)
+    {
+        result.error = create_error(ERR_MEMORY);
+        return (result);
+    }
+    result.error = create_success();
+    result.philo->philo_id = philo_id;
+    result.philo->l_fork_id = philo_id;
+    result.philo->r_fork_id = (philo_id + 1) % w->num_of_philos;
+    result.philo->eat_count = 0;
+    result.philo->last_meal_time = timestamp();
+    result.philo->is_dead = false;
+    return (result);
 }

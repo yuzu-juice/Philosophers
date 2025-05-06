@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 11:41:30 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:00:31 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	*watchdog(void *arg)
 		}
 		if (are_all_philos_full(w))
 		{
-			pthread_mutex_lock(w->is_dead_mutex);
-			w->is_dead[0] = true;
-			pthread_mutex_unlock(w->is_dead_mutex);
+			w->philos[0].is_dead = true;
 			break ;
 		}
 		usleep(100);
@@ -48,7 +46,7 @@ static bool	are_all_philos_full(t_waiter *w)
 	i = 0;
 	while (i < w->num_of_philos)
 	{
-		if (w->eat_count[i] < w->num_of_times_each_philo_must_eat)
+		if (w->philos[i].eat_count < w->num_of_times_each_philo_must_eat)
 			return (false);
 		i++;
 	}

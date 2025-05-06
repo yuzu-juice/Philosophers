@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 18:31:00 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:11:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,34 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	t_waiter		*w;
 
 	w = &result.w;
+	w->philos = NULL;
+	w->forks = NULL;
+	w->forks_mutex = NULL;
+	w->print_mutex = NULL;
 	result.error = create_success();
 	result.error = parse_args_and_validate(w, argc, argv);
-	if (!result.error.is_error)
-		result.error = init_resources(w);
+	if (result.error.is_error)
+		return (result);
+	w->philos = ft_calloc(w->num_of_philos, sizeof(t_philo));
+	if (w->philos == NULL)
+	{
+		result.error = create_error(ERR_MEMORY);
+		return (result);
+	}
+	result.error = init_resources(w);
 	return (result);
 }
 
 void	cleanup_waiter(t_waiter *w)
 {
-	pthread_mutex_destroy(w->forks_mutex);
-	pthread_mutex_destroy(w->print_mutex);
-	pthread_mutex_destroy(w->eat_count_mutex);
-	pthread_mutex_destroy(w->is_dead_mutex);
+	if (w->forks_mutex)
+		pthread_mutex_destroy(w->forks_mutex);
+	if (w->print_mutex)
+		pthread_mutex_destroy(w->print_mutex);
+	ft_free(w->philos);
 	ft_free(w->forks);
-	ft_free(w->eat_count);
-	ft_free(w->is_dead);
 	ft_free(w->forks_mutex);
 	ft_free(w->print_mutex);
-	ft_free(w->eat_count_mutex);
-	ft_free(w->is_dead_mutex);
 }
 
 static t_error	parse_args_and_validate(t_waiter *w, int argc, char **argv)
@@ -72,9 +80,5 @@ static t_error	init_resources(t_waiter *w)
 	error = init_print(w);
 	if (error.is_error)
 		return (error);
-	error = init_eat_count(w);
-	if (error.is_error)
-		return (error);
-	error = init_is_dead(w);
 	return (error);
 }
