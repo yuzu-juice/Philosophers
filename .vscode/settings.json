@@ -7,6 +7,10 @@
         "utils.h": "c",
         "__locale": "c",
         "stdlib.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "stdio.h": "c",
+        "waiter.h": "c",
+        "forks.h": "c",
+        "thread.h": "c"
     }
 }

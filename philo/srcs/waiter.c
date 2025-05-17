@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/05 15:37:01 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/06 23:53:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,21 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	t_waiter		*w;
 
 	w = &result.w;
+	w->philos = NULL;
+	w->forks = NULL;
+	w->forks_mutex = NULL;
+	w->print_mutex = NULL;
 	result.error = create_success();
 	result.error = parse_args_and_validate(w, argc, argv);
-	if (!result.error.is_error)
-		result.error = init_resources(w);
+	if (result.error.is_error)
+		return (result);
+	w->philos = ft_calloc(w->num_of_philos, sizeof(t_philo));
+	if (w->philos == NULL)
+	{
+		result.error = create_error(ERR_MEMORY);
+		return (result);
+	}
+	result.error = init_resources(w);
 	return (result);
 }
 
@@ -35,24 +46,14 @@ void	cleanup_waiter(t_waiter *w)
 	i = 0;
 	while (i < w->num_of_forks)
 	{
-		pthread_mutex_destroy(&(w->forks_mutex[i]));
+		pthread_mutex_destroy(&w->forks_mutex[i]);
 		i++;
 	}
 	pthread_mutex_destroy(w->print_mutex);
-	pthread_mutex_destroy(w->eat_count_mutex);
-	pthread_mutex_destroy(w->is_dead_mutex);
-	free(w->eat_count);
-	free(w->is_dead);
-	free(w->forks_mutex);
-	free(w->print_mutex);
-	free(w->eat_count_mutex);
-	free(w->is_dead_mutex);
-	w->eat_count = NULL;
-	w->is_dead = NULL;
-	w->forks_mutex = NULL;
-	w->print_mutex = NULL;
-	w->eat_count_mutex = NULL;
-	w->is_dead_mutex = NULL;
+	ft_free(w->philos);
+	ft_free(w->forks);
+	ft_free(w->forks_mutex);
+	ft_free(w->print_mutex);
 }
 
 static t_error	parse_args_and_validate(t_waiter *w, int argc, char **argv)
@@ -78,15 +79,12 @@ static t_error	init_resources(t_waiter *w)
 {
 	t_error	error;
 
-	error = init_print_mutex(w);
+	error = init_forks(w);
 	if (error.is_error)
 		return (error);
-	error = init_forks_mutex(w);
+	error = init_print(w);
 	if (error.is_error)
 		return (error);
-	error = init_eat_count(w);
-	if (error.is_error)
-		return (error);
-	error = init_is_dead(w);
+	w->should_stop = false;
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 02:01:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/02 02:08:18 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/05 18:30:35 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	ft_bzero(ptr, nmemb * size);
 	return (ptr);
+}
+
+void	ft_free(void *mem)
+{
+	if (mem)
+		free(mem);
+	mem = NULL;
 }
 
 static void	ft_bzero(void *s, size_t n)

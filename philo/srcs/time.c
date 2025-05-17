@@ -6,33 +6,29 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/04 22:04:43 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/05/07 00:24:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_error	ft_msleep(int ms, t_info *info)
+t_error	ft_msleep(int ms, t_waiter *w, int philo_id)
 {
 	long	start;
-	bool	has_died;
+	t_philo	*philo;
 
+	philo = &w->philos[philo_id];
 	start = timestamp();
-	has_died = false;
 	while (true)
 	{
 		if (elapsed_time_as_ms(start) >= ms)
 			break ;
-		pthread_mutex_lock(info->w->is_dead_mutex);
-		if (timestamp() - info->last_meal_time >= info->w->time_to_die)
+		if (timestamp() - philo->last_meal_time >= w->time_to_die)
 		{
-			info->w->is_dead[info->philo_id] = true;
-			has_died = true;
-		}
-		pthread_mutex_unlock(info->w->is_dead_mutex);
-		if (has_died)
+			w->philos[philo_id].is_dead = true;
 			return (create_error(ERR_PHILO_DIED));
-		if (check_someone_died(info->w) != -1)
+		}
+		if (check_someone_died(w) != -1)
 			return (create_error(ERR_PHILO_DIED));
 		usleep(1000);
 	}
