@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.h                                             :+:      :+:    :+:   */
+/*   set_mutex_flags.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 23:34:30 by takitaga         ###   ########.fr       */
+/*   Created: 2025/06/19 23:54:46 by takitaga          #+#    #+#             */
+/*   Updated: 2025/06/19 23:57:23 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_H
-# define TIME_H
+#include "../../includes/philo.h"
 
-# include <sys/time.h>
-# include "types.h"
-
-t_error	ft_msleep(int ms, t_waiter *w);
-long	elapsed_time_as_ms(long start);
-long	timestamp(void);
-
-#endif
+void	set_stop_flag(t_waiter *w)
+{
+	pthread_mutex_lock(&w->stop_mutex);
+	w->should_stop = true;
+	pthread_mutex_unlock(&w->stop_mutex);
+}

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/07 00:24:11 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/19 23:56:36 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_philo
 	int			r_fork_id;
 	int			eat_count;
 	long		last_meal_time;
-	bool		is_dead;
 }	t_philo;
 
 typedef struct s_info_result

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/07 01:12:07 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 00:06:38 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,22 @@ t_error	philo(t_waiter w)
 
 	if (w.num_of_philos == 1)
 		return (print_status(&w, 0, DIED));
-	if (pthread_create(&watchdog_th, NULL, watchdog, &w) != 0)
-		return (create_error(ERR_THREAD_CREATE));
 	result = create_philo_threads(&w);
 	if (result.error.is_error)
+		return (free_t_pthread_ptr(&result), result.error);
+	i = -1;
+	if (pthread_create(&watchdog_th, NULL, watchdog, &w) != 0)
 	{
-		ft_free(result.tid);
-		ft_free(result.args);
-		return (result.error);
+		set_stop_flag(&w);
+		while (++i < w.num_of_philos)
+			pthread_join(result.tid[i], NULL);
+		free_t_pthread_ptr(&result);
+		return (create_error(ERR_THREAD_CREATE));
 	}
-	i = 0;
-	while (i < w.num_of_philos)
-	{
+	while (++i < w.num_of_philos)
 		pthread_join(result.tid[i], NULL);
-		i++;
-	}
 	pthread_join(watchdog_th, NULL);
-	ft_free(result.tid);
-	ft_free(result.args);
+	free_t_pthread_ptr(&result);
 	return (create_success());
 }
 
@@ -64,7 +62,6 @@ static t_philo_result	init_philo(t_waiter *w, int philo_id)
 	result.philo->r_fork_id = (philo_id + 1) % w->num_of_philos;
 	result.philo->eat_count = 0;
 	result.philo->last_meal_time = timestamp();
-	result.philo->is_dead = false;
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 21:03:12 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/19 23:56:34 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,25 @@ static bool	are_all_philos_full(t_waiter *w);
 void	*watchdog(void *arg)
 {
 	t_waiter	*w;
-	int			dead_philo_id;
+	int			i;
 
 	w = (t_waiter *)arg;
 	while (true)
 	{
-		dead_philo_id = check_someone_died(w);
-		if (dead_philo_id != -1)
+		i = 0;
+		while (i < w->num_of_philos)
 		{
-			print_status(w, dead_philo_id, DIED);
-			break ;
+			if (timestamp() - w->philos[i].last_meal_time >= w->time_to_die)
+			{
+				print_status(w, i, DIED);
+				set_stop_flag(w);
+				return (NULL);
+			}
+			i++;
 		}
 		if (are_all_philos_full(w))
 		{
-			pthread_mutex_lock(&w->stop_mutex);
-			w->should_stop = true;
-			pthread_mutex_unlock(&w->stop_mutex);
+			set_stop_flag(w);
 			break ;
 		}
 		usleep(100);

@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 01:57:45 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 20:58:11 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 00:00:52 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_free(void *mem);
 int		check_someone_died(t_waiter *w);
 bool	should_stop(t_waiter *w);
+void	set_stop_flag(t_waiter *w);
+void	free_t_pthread_ptr(t_pthread_ptr_result *ptr);
 
 #endif

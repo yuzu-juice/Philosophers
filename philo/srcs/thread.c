@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 20:54:22 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/19 23:35:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_error	philo_thinks(t_waiter *w, int philo_id)
 	t_error	error;
 
 	print_status(w, philo_id, IS_THINKING);
-	error = ft_msleep(1, w, philo_id);
+	error = ft_msleep(1, w);
 	return (error);
 }
 
@@ -72,7 +72,7 @@ static t_error	philo_eats(t_waiter *w, int philo_id)
 	philo = &w->philos[philo_id];
 	philo->last_meal_time = timestamp();
 	print_status(w, philo_id, IS_EATING);
-	error = ft_msleep(w->time_to_eat, w, philo_id);
+	error = ft_msleep(w->time_to_eat, w);
 	put_forks(w, philo->l_fork_id, philo->r_fork_id);
 	philo->eat_count++;
 	return (error);
@@ -83,6 +83,6 @@ static t_error	philo_sleeps(t_waiter *w, int philo_id)
 	t_error	error;
 
 	print_status(w, philo_id, IS_SLEEPING);
-	error = ft_msleep(w->time_to_sleep, w, philo_id);
+	error = ft_msleep(w->time_to_sleep, w);
 	return (error);
 }

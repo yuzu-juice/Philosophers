@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.h                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 23:34:30 by takitaga         ###   ########.fr       */
+/*   Created: 2025/06/20 00:00:15 by takitaga          #+#    #+#             */
+/*   Updated: 2025/06/20 00:00:42 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIME_H
-# define TIME_H
+#include "../../includes/philo.h"
 
-# include <sys/time.h>
-# include "types.h"
-
-t_error	ft_msleep(int ms, t_waiter *w);
-long	elapsed_time_as_ms(long start);
-long	timestamp(void);
-
-#endif
+void	free_t_pthread_ptr(t_pthread_ptr_result *ptr)
+{
+	if (ptr == NULL)
+		return ;
+	ft_free(ptr->tid);
+	ft_free(ptr->args);
+}

@@ -12,7 +12,9 @@ SRCS	= srcs/main.c\
 			srcs/utils/ft_atouint.c\
 			srcs/utils/ft_calloc.c\
 			srcs/utils/ft_putstr.c\
-			srcs/utils/check_someone_died.c
+			srcs/utils/check_someone_died.c\
+			srcs/utils/set_mutex_flags.c\
+			srcs/utils/free.c
 OBJS	= $(SRCS:.c=.o)
 HEADERS	= includes/philo.h\
 			includes/error_messages.h\
