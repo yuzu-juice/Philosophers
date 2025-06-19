@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/07 00:40:09 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:26:02 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,6 @@ t_error	init_forks(t_waiter *w)
 			return (create_error(ERR_MUTEX_INIT));
 		}
 		i++;
-	}
-	return (create_success());
-}
-
-t_error	init_print(t_waiter *w)
-{
-	w->print_mutex = ft_calloc(1, sizeof(t_mutex));
-	if (w->print_mutex == NULL)
-		return (create_error(ERR_MEMORY));
-	if (pthread_mutex_init(w->print_mutex, NULL) != 0)
-	{
-		ft_free(w->print_mutex);
-		return (create_error(ERR_MUTEX_INIT));
 	}
 	return (create_success());
 }

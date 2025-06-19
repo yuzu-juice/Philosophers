@@ -24,7 +24,6 @@ t_waiter_result	init_waiter(int argc, char **argv)
 	w->philos = NULL;
 	w->forks = NULL;
 	w->forks_mutex = NULL;
-	w->print_mutex = NULL;
 	result.error = create_success();
 	result.error = parse_args_and_validate(w, argc, argv);
 	if (result.error.is_error)
@@ -49,11 +48,11 @@ void	cleanup_waiter(t_waiter *w)
 		pthread_mutex_destroy(&w->forks_mutex[i]);
 		i++;
 	}
-	pthread_mutex_destroy(w->print_mutex);
+	pthread_mutex_destroy(&w->print_mutex);
+	pthread_mutex_destroy(&w->stop_mutex);
 	ft_free(w->philos);
 	ft_free(w->forks);
 	ft_free(w->forks_mutex);
-	ft_free(w->print_mutex);
 }
 
 static t_error	parse_args_and_validate(t_waiter *w, int argc, char **argv)
@@ -82,9 +81,10 @@ static t_error	init_resources(t_waiter *w)
 	error = init_forks(w);
 	if (error.is_error)
 		return (error);
-	error = init_print(w);
-	if (error.is_error)
-		return (error);
+	if (pthread_mutex_init(&w->print_mutex, NULL) != 0)
+		return (create_error(ERR_MUTEX_INIT));
+	if (pthread_mutex_init(&w->stop_mutex, NULL) != 0)
+		return (create_error(ERR_MUTEX_INIT));
 	w->should_stop = false;
 	return (error);
 }

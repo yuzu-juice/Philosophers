@@ -30,7 +30,9 @@ void	*watchdog(void *arg)
 		}
 		if (are_all_philos_full(w))
 		{
+			pthread_mutex_lock(&w->stop_mutex);
 			w->should_stop = true;
+			pthread_mutex_unlock(&w->stop_mutex);
 			break ;
 		}
 		usleep(100);

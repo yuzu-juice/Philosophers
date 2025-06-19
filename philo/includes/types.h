@@ -75,7 +75,8 @@ typedef struct s_waiter
 	bool	*forks;
 	bool	should_stop;
 	t_mutex	*forks_mutex;
-	t_mutex	*print_mutex;
+	t_mutex	print_mutex;
+	t_mutex	stop_mutex;
 }	t_waiter;
 
 typedef struct s_waiter_result
