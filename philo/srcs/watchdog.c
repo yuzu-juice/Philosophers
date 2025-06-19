@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:18:15 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 23:56:34 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 00:17:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ void	*watchdog(void *arg)
 		if (are_all_philos_full(w))
 		{
 			set_stop_flag(w);
-			break ;
+			return (NULL);
 		}
 		usleep(100);
 	}
-	return (NULL);
 }
 
 static bool	are_all_philos_full(t_waiter *w)
