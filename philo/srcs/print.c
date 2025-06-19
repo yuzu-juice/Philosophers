@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/07 01:24:00 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:59:02 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 t_error	print_status(t_waiter *w, int philo_id, t_print_status s)
 {
 	long	elapsed_time;
-	bool	should_stop;
+	bool	stop;
 
 	elapsed_time = elapsed_time_as_ms(w->start_time);
-	pthread_mutex_lock(&w->stop_mutex);
-	should_stop = w->should_stop;
-	pthread_mutex_unlock(&w->stop_mutex);
+	stop = should_stop(w);
+	if (stop)
+		return (create_success());
 	pthread_mutex_lock(&w->print_mutex);
 	if (s == TAKEN_FORKS)
 		printf("%ld %d has taken a fork\n", elapsed_time, philo_id);
@@ -30,7 +30,7 @@ t_error	print_status(t_waiter *w, int philo_id, t_print_status s)
 		printf("%ld %d is sleeping\n", elapsed_time, philo_id);
 	else if (s == IS_THINKING)
 		printf("%ld %d is thinking\n", elapsed_time, philo_id);
-	else if (s == DIED && should_stop == false)
+	else if (s == DIED)
 		printf("%ld %d died\n", elapsed_time, philo_id);
 	pthread_mutex_unlock(&w->print_mutex);
 	return (create_success());
