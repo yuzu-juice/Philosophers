@@ -62,6 +62,9 @@ integration: all
 tests: norm integration
 
 valgrind: all
-	valgrind --leak-check=full --show-leak-kinds=all ./philo 5 400 100 100
+	valgrind --leak-check=full --show-leak-kinds=all ./philo 2 60 60 60
+
+helgrind: all
+	valgrind --tool=helgrind ./philo 2 8100 2000 2000 1
 
 .PHONY: all clean fclean re norm integration tests valgrind
