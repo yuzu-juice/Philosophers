@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 11:53:12 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 07:01:30 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 08:17:58 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static t_error			validate_argc(int argc);
 int	main(int argc, char **argv)
 {
 	t_error			error;
-	t_table_result	waiter_result;
+	t_table_result	table_result;
 
 	error = validate_argc(argc);
 	if (error.is_error)
 		return (print_error_and_return_failure(error));
-	waiter_result = init_table(argc, argv);
-	if (waiter_result.error.is_error)
-		return (print_error_and_return_failure(waiter_result.error));
-	error = philo(waiter_result.t);
+	table_result = init_table(argc, argv);
+	if (table_result.error.is_error)
+		return (print_error_and_return_failure(table_result.error));
+	error = philo(table_result.t);
 	if (error.is_error)
 	{
-		cleanup_waiter(&waiter_result.t);
+		cleanup_table(&table_result.t);
 		return (print_error_and_return_failure(error));
 	}
-	cleanup_waiter(&waiter_result.t);
+	cleanup_table(&table_result.t);
 	return (EXIT_SUCCESS);
 }
 

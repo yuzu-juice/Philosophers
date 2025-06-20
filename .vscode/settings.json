@@ -9,7 +9,7 @@
         "stdlib.h": "c",
         "time.h": "c",
         "stdio.h": "c",
-        "waiter.h": "c",
+        "table.h": "c",
         "forks.h": "c",
         "thread.h": "c",
         "types.h": "c"

@@ -2,7 +2,7 @@ NAME	= philo
 SRCS	= srcs/main.c\
 			srcs/init.c\
 			srcs/error.c\
-			srcs/waiter.c\
+			srcs/table.c\
 			srcs/philo.c\
 			srcs/philo_utils.c\
 			srcs/forks.c\
@@ -23,7 +23,7 @@ HEADERS	= includes/philo.h\
 			includes/thread.h\
 			includes/time.h\
 			includes/print.h\
-			includes/waiter.h
+			includes/table.h
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 
