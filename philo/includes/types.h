@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 06:37:31 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:49:07 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef enum e_exit_failure
 
 typedef enum e_print_status
 {
+	TAKEN_FORK,
 	TAKEN_FORKS,
 	IS_EATING,
 	IS_SLEEPING,

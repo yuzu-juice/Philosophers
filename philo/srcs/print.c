@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 20:59:02 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:48:59 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ t_error	print_status(t_waiter *w, int philo_id, t_print_status s)
 	if (stop)
 		return (create_success());
 	pthread_mutex_lock(&w->print_mutex);
-	if (s == TAKEN_FORKS)
+	if (s == TAKEN_FORK)
 		printf("%ld %d has taken a fork\n", elapsed_time, philo_id);
+	else if (s == TAKEN_FORKS)
+		printf("%ld %d has taken fork\n%ld %d has taken fork\n",
+			elapsed_time, philo_id, elapsed_time, philo_id);
 	else if (s == IS_EATING)
 		printf("%ld %d is eating\n", elapsed_time, philo_id);
 	else if (s == IS_SLEEPING)

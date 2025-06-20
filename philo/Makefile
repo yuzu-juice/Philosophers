@@ -4,6 +4,7 @@ SRCS	= srcs/main.c\
 			srcs/error.c\
 			srcs/waiter.c\
 			srcs/philo.c\
+			srcs/philo_utils.c\
 			srcs/forks.c\
 			srcs/thread.c\
 			srcs/time.c\
@@ -31,7 +32,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lpthread -I includes
 
-%.o: %.c $(HEADERS))
+%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@ -I includes
 
 clean:

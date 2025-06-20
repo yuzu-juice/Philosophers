@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:05:06 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 20:46:29 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:51:45 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 t_waiter_result	init_waiter(int argc, char **argv);
 void			cleanup_waiter(t_waiter *w);
 t_error			philo(t_waiter params);
+t_error			solo_philo(t_waiter *w);
 t_error			create_error(char *msg);
 t_error			create_success(void);
 

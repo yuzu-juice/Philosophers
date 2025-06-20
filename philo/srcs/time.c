@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 08:13:48 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:53:57 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_error	ft_msleep(int ms, t_waiter *w)
 	start = timestamp();
 	while (true)
 	{
-		if (elapsed_time_as_ms(start) >= ms)
-			break ;
 		if (should_stop(w))
 			return (create_error(ERR_PHILO_DIED));
+		if (elapsed_time_as_ms(start) >= ms)
+			break ;
 		usleep(1000);
 	}
 	return (create_success());
