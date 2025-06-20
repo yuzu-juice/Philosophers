@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 00:45:05 by takitaga          #+#    #+#             */
-/*   Updated: 2025/05/06 23:53:26 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:39:02 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	cleanup_waiter(t_waiter *w)
 	while (i < w->num_of_forks)
 	{
 		pthread_mutex_destroy(&w->forks_mutex[i]);
+		i++;
+	}
+	i = 0;
+	while (i < w->num_of_philos)
+	{
+		pthread_mutex_destroy(&w->philos[i].philo_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&w->print_mutex);

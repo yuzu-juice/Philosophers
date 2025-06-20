@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 23:20:14 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 00:06:38 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 06:38:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ static t_philo_result	init_philo(t_waiter *w, int philo_id)
 		result.error = create_error(ERR_MEMORY);
 		return (result);
 	}
+	if (pthread_mutex_init(&result.philo->philo_mutex, NULL) != 0)
+	{
+		ft_free(result.philo);
+		result.error = create_error(ERR_MUTEX_INIT);
+		return (result);
+	}
 	result.error = create_success();
 	result.philo->philo_id = philo_id;
 	result.philo->l_fork_id = philo_id;
 	result.philo->r_fork_id = (philo_id + 1) % w->num_of_philos;
 	result.philo->eat_count = 0;
-	result.philo->last_meal_time = timestamp();
+	result.philo->last_meal_time = w->start_time;
 	return (result);
 }
 
