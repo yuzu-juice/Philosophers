@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 00:13:07 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 07:00:36 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:45:37 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	get_fork_order(int fork_1, int fork_2, int *first, int *second);
 
-void	take_forks(t_table *t, int fork_1, int fork_2)
+t_error	take_forks(t_table *t, int fork_1, int fork_2)
 {
 	int	first_fork_to_take;
 	int	second_fork_to_take;
@@ -22,6 +22,8 @@ void	take_forks(t_table *t, int fork_1, int fork_2)
 	get_fork_order(fork_1, fork_2, &first_fork_to_take, &second_fork_to_take);
 	while (true)
 	{
+		if (should_stop(t))
+			return (create_error(ERR_PHILO_DIED));
 		pthread_mutex_lock(&t->forks_mutex[first_fork_to_take]);
 		if (!t->forks[first_fork_to_take])
 		{
@@ -32,7 +34,7 @@ void	take_forks(t_table *t, int fork_1, int fork_2)
 				t->forks[second_fork_to_take] = true;
 				pthread_mutex_unlock(&t->forks_mutex[second_fork_to_take]);
 				pthread_mutex_unlock(&t->forks_mutex[first_fork_to_take]);
-				return ;
+				return (create_success());
 			}
 			pthread_mutex_unlock(&t->forks_mutex[second_fork_to_take]);
 		}

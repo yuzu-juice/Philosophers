@@ -6,14 +6,14 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 07:03:47 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:45:48 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 static t_error	philo_thinks(t_table *t, int philo_id);
-static void		philo_takes_forks(t_table *t, int philo_id);
+static t_error	philo_takes_forks(t_table *t, int philo_id);
 static t_error	philo_eats(t_table *t, int philo_id);
 static t_error	philo_sleeps(t_table *t, int philo_id);
 
@@ -30,22 +30,20 @@ void	*philo_thread(void *arg)
 	philo = &t->philos[philo_id];
 	while (true)
 	{
-		philo_takes_forks(t, philo_id);
-		if (check_someone_died(t) != -1)
+		if (philo_takes_forks(t, philo_id).is_error)
 		{
 			put_forks(t, philo->l_fork_id, philo->r_fork_id);
 			break ;
 		}
 		if (philo_eats(t, philo_id).is_error
-			|| check_someone_died(t) != -1 || philo_sleeps(t, philo_id).is_error
-			|| check_someone_died(t) != -1 || philo_thinks(t, philo_id).is_error
-			|| check_someone_died(t) != -1)
+			|| should_stop(t) || philo_sleeps(t, philo_id).is_error
+			|| should_stop(t) || philo_thinks(t, philo_id).is_error
+			|| should_stop(t))
 			break ;
 	}
 	return (NULL);
 }
 
-// Wait until the philosopher can take forks
 static t_error	philo_thinks(t_table *t, int philo_id)
 {
 	t_error	error;
@@ -55,13 +53,15 @@ static t_error	philo_thinks(t_table *t, int philo_id)
 	return (error);
 }
 
-static void	philo_takes_forks(t_table *t, int philo_id)
+static t_error	philo_takes_forks(t_table *t, int philo_id)
 {
-	t_philo		*philo;
+	t_philo	*philo;
+	t_error	error;
 
 	philo = &t->philos[philo_id];
-	take_forks(t, philo->l_fork_id, philo->r_fork_id);
+	error = take_forks(t, philo->l_fork_id, philo->r_fork_id);
 	print_status(t, philo_id, TAKEN_FORKS);
+	return (error);
 }
 
 static t_error	philo_eats(t_table *t, int philo_id)
