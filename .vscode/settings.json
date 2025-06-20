@@ -11,6 +11,7 @@
         "stdio.h": "c",
         "waiter.h": "c",
         "forks.h": "c",
-        "thread.h": "c"
+        "thread.h": "c",
+        "types.h": "c"
     }
 }

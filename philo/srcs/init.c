@@ -6,34 +6,34 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 20:23:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/19 20:26:02 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:04:42 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_error	init_forks(t_waiter *w)
+t_error	init_forks(t_table *t)
 {
 	int	i;
 
-	w->forks = ft_calloc(w->num_of_forks, sizeof(bool));
-	if (w->forks == NULL)
+	t->forks = ft_calloc(t->num_of_forks, sizeof(bool));
+	if (t->forks == NULL)
 		return (create_error(ERR_MEMORY));
-	w->forks_mutex = ft_calloc(w->num_of_forks, sizeof(t_mutex));
-	if (w->forks_mutex == NULL)
+	t->forks_mutex = ft_calloc(t->num_of_forks, sizeof(t_mutex));
+	if (t->forks_mutex == NULL)
 	{
-		ft_free(w->forks);
+		ft_free(t->forks);
 		return (create_error(ERR_MEMORY));
 	}
 	i = 0;
-	while (i < w->num_of_forks)
+	while (i < t->num_of_forks)
 	{
-		if (pthread_mutex_init(&w->forks_mutex[i], NULL) != 0)
+		if (pthread_mutex_init(&t->forks_mutex[i], NULL) != 0)
 		{
-			ft_free(w->forks);
+			ft_free(t->forks);
 			while (--i >= 0)
-				pthread_mutex_destroy(&w->forks_mutex[i]);
-			ft_free(w->forks_mutex);
+				pthread_mutex_destroy(&t->forks_mutex[i]);
+			ft_free(t->forks_mutex);
 			return (create_error(ERR_MUTEX_INIT));
 		}
 		i++;

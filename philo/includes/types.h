@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:36:21 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 06:49:07 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:02:06 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_info_result
 	t_error	error;
 }	t_philo_result;
 
-typedef struct s_waiter
+typedef struct s_table
 {
 	t_philo	*philos;
 	long	start_time;
@@ -78,18 +78,18 @@ typedef struct s_waiter
 	t_mutex	*forks_mutex;
 	t_mutex	print_mutex;
 	t_mutex	stop_mutex;
-}	t_waiter;
+}	t_table;
 
-typedef struct s_waiter_result
+typedef struct s_table_result
 {
-	t_waiter	w;
-	t_error		error;
-}	t_waiter_result;
+	t_table	t;
+	t_error	error;
+}	t_table_result;
 
 typedef struct s_thread_arg
 {
-	t_waiter	*w;
-	int			philo_id;
+	t_table	*t;
+	int		philo_id;
 }	t_thread_arg;
 
 typedef struct s_pthread_t_ptr_result

@@ -6,20 +6,20 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:26:50 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 06:53:57 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:03:56 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_error	ft_msleep(int ms, t_waiter *w)
+t_error	ft_msleep(int ms, t_table *t)
 {
 	long	start;
 
 	start = timestamp();
 	while (true)
 	{
-		if (should_stop(w))
+		if (should_stop(t))
 			return (create_error(ERR_PHILO_DIED));
 		if (elapsed_time_as_ms(start) >= ms)
 			break ;

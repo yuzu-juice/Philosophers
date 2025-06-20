@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:32:08 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 08:13:44 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 07:04:24 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include <sys/time.h>
 # include "types.h"
 
-t_error	ft_msleep(int ms, t_waiter *w);
+typedef struct s_error	t_error;
+typedef struct s_table	t_table;
+
+t_error	ft_msleep(int ms, t_table *t);
 long	elapsed_time_as_ms(long start);
 long	timestamp(void);
 
