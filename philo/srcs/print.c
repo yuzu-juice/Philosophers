@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 09:30:41 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 18:58:41 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:07:41 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_error	print_status(t_table *t, int philo_id, t_print_status s)
 		pthread_mutex_unlock(&t->print_mutex);
 		return (create_success());
 	}
+	philo_id++;
 	if (s == TAKEN_FORK)
 		printf("%ld %d has taken a fork\n", elapsed_time, philo_id);
 	else if (s == IS_EATING)

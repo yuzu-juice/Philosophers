@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 00:13:07 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 07:45:37 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:09:38 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_error	take_forks(t_table *t, int fork_1, int fork_2)
 			pthread_mutex_unlock(&t->forks_mutex[second_fork_to_take]);
 		}
 		pthread_mutex_unlock(&t->forks_mutex[first_fork_to_take]);
+		usleep(100);
 	}
 }
 
