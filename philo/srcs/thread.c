@@ -6,7 +6,7 @@
 /*   By: takitaga <takitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 08:42:23 by takitaga          #+#    #+#             */
-/*   Updated: 2025/06/20 07:45:48 by takitaga         ###   ########.fr       */
+/*   Updated: 2025/06/20 19:00:26 by takitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static t_error	philo_takes_forks(t_table *t, int philo_id)
 
 	philo = &t->philos[philo_id];
 	error = take_forks(t, philo->l_fork_id, philo->r_fork_id);
-	print_status(t, philo_id, TAKEN_FORKS);
+	print_status(t, philo_id, TAKEN_FORK);
+	print_status(t, philo_id, TAKEN_FORK);
 	return (error);
 }
 
